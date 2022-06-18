@@ -12,7 +12,6 @@ namespace DemoQA_Test.Steps
     {
         Configuration configuration = new Configuration();
 
-
         public void ElementToBeClickable(By elementLocator)
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(configuration.timeOut));
@@ -46,5 +45,21 @@ namespace DemoQA_Test.Steps
             string e = driver.FindElement(elementLocator).Text;
             Assert.That(e, Is.EqualTo(textLocator));
         }
+        public void VerifyCheckboxTextExit(string checkboxText)
+        {
+            By elementLocator = By.XPath("//input[@type='checkbox']/following::*[text() = '" + checkboxText + "']");
+            ElementIsVisible(elementLocator);
+        }
+        public void VerifyCheckboxIsChecked()
+        {
+
+        }
+        public void VerifyButtonTooltipExit(string buttonTooltipText)
+        {
+            By elementLocator = By.XPath("//button[@title='" + buttonTooltipText + "']");
+            ElementIsVisible(elementLocator);
+        }
+
+
     }
 }

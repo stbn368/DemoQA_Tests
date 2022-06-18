@@ -25,7 +25,12 @@ namespace DemoQA_Test.Steps
             By elementLocator = By.XPath("//*[contains(text(),'" + textElement + "')]");
             verify.ElementToBeClickable(elementLocator);
             driver.FindElement(elementLocator).Click();
-
+        }
+        public void ClickButtonTooltip(string buttonTooltipText)
+        {
+            By elementLocator = By.XPath("//button[@title='" + buttonTooltipText + "']");
+            verify.ElementToBeClickable(elementLocator);
+            driver.FindElement(elementLocator).Click();
         }
 
 

@@ -12,6 +12,7 @@ namespace DemoQA_Test.Tests
     {
         Click click = new Click();
         Verify verify = new Verify();
+        Select select = new Select();
 
         [Test, Order(0)]
         public void ElementsTextBox()
@@ -32,8 +33,17 @@ namespace DemoQA_Test.Tests
             click.ClickElement("Elements");
             verify.VerifyExactText("Please select an item from left to start practice.");
             click.ClickElementText("Check Box");
+            verify.VerifyCheckboxTextExit("Home");
+            select.SelectCheckboxText("Home");
+            verify.VerifyExactText("You have selected :");
+            verify.VerifyExactText("home");
+            verify.VerifyButtonTooltipExit("Toggle");
+            verify.VerifyButtonTooltipExit("Expand all");
+            click.ClickButtonTooltip("Toggle");
+            click.ClickButtonTooltip("Expand all");
+            verify.VerifyCheckboxTextExit("Desktop");
 
-            Thread.Sleep(3000);
+            Thread.Sleep(10000);
         }
 
 
