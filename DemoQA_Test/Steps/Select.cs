@@ -1,4 +1,6 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,10 @@ namespace DemoQA_Test.Steps
             By elementLocator = By.XPath("//input[@type='checkbox']/following::*[text() = '" + checkboxText + "']");
             verify.ElementToBeClickable(elementLocator);
             driver.FindElement(elementLocator).Click();
+        }
+        public void ScrollAll()
+        {
+            driver.ExecuteJavaScript("window.scrollTo(0, document.body.scrollHeight);");
         }
     }
 }
