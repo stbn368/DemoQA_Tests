@@ -40,10 +40,15 @@ namespace DemoQA_Test.Steps
         }
         public void VerifyExactText(string textLocator)
         {
-            By elementLocator = By.XPath("//*[contains(text(),'" + textLocator + "')]");
+            By elementLocator = By.XPath("//*[text()='" + textLocator + "']");
             ElementIsVisible(elementLocator);
             string e = driver.FindElement(elementLocator).Text;
             Assert.That(e, Is.EqualTo(textLocator));
+        }
+        public void VerifyExactTextExist(string textLocator)
+        {
+            By elementLocator = By.XPath("//*[text()='" + textLocator + "']");
+            ElementIsVisible(elementLocator);
         }
         public void VerifyCheckboxTextExit(string checkboxText)
         {

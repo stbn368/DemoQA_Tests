@@ -13,6 +13,7 @@ namespace DemoQA_Test.Tests
         Click click = new Click();
         Verify verify = new Verify();
         Select select = new Select();
+        EnterText enterText = new EnterText();
 
         [Test, Order(0)]
         public void ElementsTextBox()
@@ -24,8 +25,18 @@ namespace DemoQA_Test.Tests
             verify.VerifyExactText("Email");
             verify.VerifyExactText("Current Address");
             verify.VerifyExactText("Permanent Address");
+            enterText.EnterTextInputWithLabelAndPlaceholder("Full Name", "Full Name", "Esteban Calderón Moya");
+            enterText.EnterTextInputWithLabelAndPlaceholder("Email", "name@example.com", "esteban@testing.com");
+            enterText.EnterTextTexareaWithLabelAndPlaceholder("Current Address", "Current Address", "Dirección actual");
+            enterText.EnterTextTexareaWithLabel("Permanent Address", "Dirección permanente");
+            select.ScrollAll();
+            click.ClickButtonText("Submit");
+            verify.VerifyExactTextExist("Esteban Calderón Moya");
+            verify.VerifyExactTextExist("esteban@testing.com");
+            verify.VerifyExactTextExist("Dirección actual");
+            verify.VerifyExactTextExist("Dirección permanente");
 
-            Thread.Sleep(3000);
+            //Thread.Sleep(3000);
         }
         [Test, Order(1)]
         public void ElementsChecktBox()
@@ -43,7 +54,7 @@ namespace DemoQA_Test.Tests
             click.ClickButtonTooltip("Expand all");
             verify.VerifyCheckboxTextExit("Desktop");
 
-            Thread.Sleep(10000);
+            //Thread.Sleep(10000);
         }
 
 
