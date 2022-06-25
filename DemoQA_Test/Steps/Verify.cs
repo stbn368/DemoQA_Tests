@@ -11,58 +11,118 @@ namespace DemoQA_Test.Steps
     public class Verify : Base
     {
         Configuration configuration = new Configuration();
+        Wait wait = new Wait();
 
-        public void ElementToBeClickable(By elementLocator)
-        {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(configuration.timeOut));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(elementLocator));
-        }
-
-        public void ElementToBeSelected(By elementLocator)
-        {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(configuration.timeOut));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeSelected(elementLocator));
-        }
-        public void ElementExists(By elementLocator)
-        {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(configuration.timeOut));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(elementLocator));
-        }
-        public void ElementIsVisible(By elementLocator)
-        {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(configuration.timeOut));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(elementLocator));
-        }
-        public void ElementTextToBePresentInElement(IWebElement elementLocator, string textLocator)
-        {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(configuration.timeOut));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TextToBePresentInElement(elementLocator, textLocator));
-        }
+        /// <summary>
+        /// Step to verify if an exact text is available in an element
+        /// </summary>
+        /// <param name="textLocator"></param>
         public void VerifyExactText(string textLocator)
         {
             By elementLocator = By.XPath("//*[text()='" + textLocator + "']");
-            ElementIsVisible(elementLocator);
+            wait.ElementIsVisible(elementLocator);
             string e = driver.FindElement(elementLocator).Text;
             Assert.That(e, Is.EqualTo(textLocator));
         }
+
+        /// <summary>
+        /// Step to verify if an exact text is visible
+        /// </summary>
+        /// <param name="textLocator"></param>
         public void VerifyExactTextExist(string textLocator)
         {
             By elementLocator = By.XPath("//*[text()='" + textLocator + "']");
-            ElementIsVisible(elementLocator);
+            wait.ElementIsVisible(elementLocator);
         }
+
+        /// <summary>
+        /// Step to verify if a checkbox with a text is visible
+        /// </summary>
+        /// <param name="checkboxText"></param>
         public void VerifyCheckboxTextExit(string checkboxText)
         {
             By elementLocator = By.XPath("//input[@type='checkbox']/following::*[text() = '" + checkboxText + "']");
-            ElementIsVisible(elementLocator);
+            wait.ElementIsVisible(elementLocator);
         }
-        public void VerifyCheckboxIsChecked()
-        {
 
+        /// <summary>
+        /// Step to verify if a checkbox with a text does not visible
+        /// </summary>
+        /// <param name="checkboxText"></param>
+        /// <exception cref="Exception"></exception>
+        //public void VerifyCheckboxDoesNotTextExit(string checkboxText)
+        //{
+        //    By elementLocator = By.XPath("//input[@type='checkbox']/following::*[text() = '" + checkboxText + "']");
+        //    ElementIsVisible(elementLocator);
+        //}
+
+        /// <summary>
+        /// Step to verify that a checkbox is marked
+        /// </summary>
+        /// <param name="checkboxText"></param>
+        public void VerifyCheckboxIsChecked(string checkboxText)
+        {
+            By elementLocator = By.XPath("//input[@type='checkbox']/following::*[text() = '" + checkboxText + "']/preceding-sibling::span/*");
+            wait.ElementIsVisible(elementLocator);
+            var getClassText = driver.FindElement(elementLocator).GetAttribute("class");
+            if (!getClassText.Contains("uncheck"))
+            {
+                Assert.True(true, "The checkbox {0} is checked", checkboxText);
+            }
+            else
+            {
+                throw new Exception("The checkbox " + checkboxText + " is not checked");
+            }
         }
+
+        /// <summary>
+        /// Step to verify that a checkbox is unmarked
+        /// </summary>
+        /// <param name="checkboxText"></param>
+        /// <exception cref="Exception"></exception>
+        public void VerifyCheckboxIsNotChecked(string checkboxText)
+        {
+            By elementLocator = By.XPath("//input[@type='checkbox']/following::*[text() = '" + checkboxText + "']/preceding-sibling::span/*");
+            wait.ElementIsVisible(elementLocator);
+            var getClassText = driver.FindElement(elementLocator).GetAttribute("class");
+            if (getClassText.Contains("uncheck"))
+            {
+                Assert.True(true, "The checkbox {0} is not checked", checkboxText);
+            }
+            else
+            {
+                throw new Exception("The checkbox " + checkboxText + " is checked");
+            }
+        }
+
+        /// <summary>
+        /// Step to verify that a button with a tooltip text is visible
+        /// </summary>
+        /// <param name="buttonTooltipText"></param>
         public void VerifyButtonTooltipExit(string buttonTooltipText)
         {
             By elementLocator = By.XPath("//button[@title='" + buttonTooltipText + "']");
-            ElementIsVisible(elementLocator);
+            wait.ElementIsVisible(elementLocator);
+        }
+
+        /// <summary>
+        /// Step to verify that a radio button is visible
+        /// </summary>
+        /// <param name="radioButtonText"></param>
+        public void VerifyRadioButtonTextExit(string radioButtonText)
+        {
+            By elementLocator = By.XPath("//input[@type='radio']/following::label[text() = '" + radioButtonText + "']");
+            wait.ElementIsVisible(elementLocator);
+        }
+
+        /// <summary>
+        /// Step to verify that a button with a text is visible
+        /// </summary>
+        /// <param name="buttonText"></param>
+        public void VerifyButtonTextExit(string buttonText)
+        {
+            By elementLocator = By.XPath("//button[text() = '" + buttonText + "']");
+            wait.ElementIsVisible(elementLocator);
         }
 
 

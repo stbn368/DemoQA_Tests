@@ -8,8 +8,11 @@ namespace DemoQA_Test
 {
     public class Configuration
     {
+        // Url of the testing page
         public string URL = "https://demoqa.com/";
-        public int timeOut = 25;
+
+        // Time to wait until getting a timeout
+        public int timeOut = 10;
 
         //public string GetElementXpaths(string elementText)
         //{
