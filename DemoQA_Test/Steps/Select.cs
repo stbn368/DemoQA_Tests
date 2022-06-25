@@ -12,15 +12,37 @@ namespace DemoQA_Test.Steps
     public class Select : Base
     {
         Verify verify = new Verify();
+        Wait wait = new Wait();
+
+        /// <summary>
+        /// Step to select a checkbox with a text
+        /// </summary>
+        /// <param name="checkboxText"></param>
         public void SelectCheckboxText(string checkboxText)
         {
             By elementLocator = By.XPath("//input[@type='checkbox']/following::*[text() = '" + checkboxText + "']");
-            verify.ElementToBeClickable(elementLocator);
+            wait.ElementToBeClickable(elementLocator);
             driver.FindElement(elementLocator).Click();
         }
-        public void ScrollAll()
+
+        /// <summary>
+        /// Step to navigate until the down of the page
+        /// </summary>
+        public void ScrollDown()
         {
             driver.ExecuteJavaScript("window.scrollTo(0, document.body.scrollHeight);");
+        }
+
+        /// <summary>
+        /// Step to navigate until a element
+        /// </summary>
+        /// <param name="elementText"></param>
+        public void ScrollToElement(string elementText)
+        {
+            By elementLocator = By.XPath("//*[text()='" + elementText + "']");
+            IWebElement element = driver.FindElement(elementLocator);
+            driver.ExecuteJavaScript("arguments[0].scrollIntoView(true);", element);
+            //((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", element);
         }
     }
 }

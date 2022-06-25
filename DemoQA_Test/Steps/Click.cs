@@ -1,5 +1,6 @@
 ﻿using Ocelot.Infrastructure;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
@@ -13,32 +14,92 @@ namespace DemoQA_Test.Steps
     {
         Verify verify = new Verify();
         Configuration configuration = new Configuration();
+        Wait wait = new Wait();
 
+        /// <summary>
+        /// Step to locate and click elements in the home page
+        /// </summary>
+        /// <param name="textElement"></param>
         public void ClickElement(string textElement)
         {
             By elementLocator = By.XPath("//*[contains(text(),'" + textElement + "')]/parent::div/parent::div");
-            verify.ElementToBeClickable(elementLocator);
-            driver.FindElement(elementLocator).Click();
-        }
-        public void ClickElementText(string textElement)
-        {
-            By elementLocator = By.XPath("//*[contains(text(),'" + textElement + "')]");
-            verify.ElementToBeClickable(elementLocator);
-            driver.FindElement(elementLocator).Click();
-        }
-        public void ClickButtonTooltip(string buttonTooltipText)
-        {
-            By elementLocator = By.XPath("//button[@title='" + buttonTooltipText + "']");
-            verify.ElementToBeClickable(elementLocator);
-            driver.FindElement(elementLocator).Click();
-        }
-        public void ClickButtonText(string buttonText)
-        {
-            By elementLocator = By.XPath("//button[text()='"+ buttonText + "']");
-            verify.ElementToBeClickable(elementLocator);
+            wait.ElementToBeClickable(elementLocator);
             driver.FindElement(elementLocator).Click();
         }
 
+        /// <summary>
+        /// Step to locate and click elements in the left sidebar
+        /// </summary>
+        /// <param name="textElement"></param>
+        public void ClickElementText(string textElement)
+        {
+            By elementLocator = By.XPath("//*[contains(text(),'" + textElement + "')]");
+            wait.ElementToBeClickable(elementLocator);
+            driver.FindElement(elementLocator).Click();
+        }
+
+        /// <summary>
+        /// Step to locate and click in a button using the title parameter, that it is the tooltip shown
+        /// </summary>
+        /// <param name="buttonTooltipText"></param>
+        public void ClickButtonTooltip(string buttonTooltipText)
+        {
+            By elementLocator = By.XPath("//button[@title='" + buttonTooltipText + "']");
+            wait.ElementToBeClickable(elementLocator);
+            driver.FindElement(elementLocator).Click();
+        }
+
+        /// <summary>
+        /// Step to locate and click on a button with a specified text
+        /// </summary>
+        /// <param name="buttonText"></param>
+        public void ClickButtonText(string buttonText)
+        {
+            By elementLocator = By.XPath("//button[text()='"+ buttonText + "']");
+            wait.ElementToBeClickable(elementLocator);
+            driver.FindElement(elementLocator).Click();
+        }
+
+        /// <summary>
+        /// Step to locate and click on a radio button with a specified text
+        /// </summary>
+        /// <param name="radioButtonText"></param>
+        public void ClickRadioButtonText(string radioButtonText)
+        {
+            By elementLocator = By.XPath("//input[@type='radio']/following::label[text() = '" + radioButtonText + "']");
+            wait.ElementToBeClickable(elementLocator);
+            driver.FindElement(elementLocator).Click();
+        }
+
+        /// <summary>
+        /// Step to double click on a button with a specified text
+        /// </summary>
+        /// <param name="buttonText"></param>
+        public void DoubleClickButtonText(string buttonText)
+        {
+            By elementLocator = By.XPath("//button[text()='" + buttonText + "']");
+            wait.ElementToBeClickable(elementLocator);
+            IWebElement element = driver.FindElement(elementLocator);
+            
+            Actions actions = new Actions(driver);
+            actions.DoubleClick(element);
+            actions.Build().Perform();
+        }
+
+        /// <summary>
+        /// Step to right click on a button with a specified text
+        /// </summary>
+        /// <param name="buttonText"></param>
+        public void RightClickButtonText(string buttonText)
+        {
+            By elementLocator = By.XPath("//button[text()='" + buttonText + "']");
+            wait.ElementToBeClickable(elementLocator);
+            IWebElement element = driver.FindElement(elementLocator);
+
+            Actions actions = new Actions(driver);
+            actions.ContextClick(element);
+            actions.Build().Perform();
+        }
 
     }
 }

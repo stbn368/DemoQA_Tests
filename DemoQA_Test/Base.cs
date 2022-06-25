@@ -14,6 +14,7 @@ namespace DemoQA_Test
 
         Configuration configuration = new Configuration();
 
+        // Configuration at the beginning of every test
         [SetUp]
         public void Setup()
         {
@@ -22,6 +23,7 @@ namespace DemoQA_Test
             driver.Manage().Window.Maximize();
         }
 
+        // Configuration at the end of every test
         [TearDown]
         public void AfterTest()
         {
