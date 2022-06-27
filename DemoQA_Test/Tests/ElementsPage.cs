@@ -90,12 +90,49 @@ namespace DemoQA_Test.Tests
             select.ScrollToElement("Click Me");
             click.ClickButtonText("Click Me");
             verify.VerifyExactText("You have done a dynamic click");
-
-
-            Thread.Sleep(3000);
         }
 
+        [Test, Order(4)]
+        public void ElementsWebTables()
+        {
+            click.ClickElement("Elements");
+            verify.VerifyExactText("Please select an item from left to start practice.");
+            select.ScrollToElement("Web Tables");
+            click.ClickElementText("Web Tables");
 
+            // Verify row already created
+            verify.VerifyTextTableIndex(2, 2, "Alden");
+            verify.VerifyTextTableIndex(2, 3, "Cantrell");
+            verify.VerifyTextTableIndex(2, 4, "45");
+            verify.VerifyTextTableIndex(2, 5, "alden@example.com");
+            verify.VerifyTextTableIndex(2, 6, "12000");
+            verify.VerifyTextTableIndex(2, 7, "Compliance");
+
+            // Add a new row
+            verify.VerifyButtonTextExit("Add");
+            select.ScrollToElement("Add");
+            click.ClickButtonText("Add");
+            enterText.EnterTextInputWithLabelAndPlaceholder("First Name", "First Name", "User1");
+            enterText.EnterTextInputWithLabelAndPlaceholder("Last Name", "Last Name", "LastName2");
+            enterText.EnterTextInputWithLabelAndPlaceholder("Email", "name@example.com", "test1@testing.com");
+            enterText.EnterTextInputWithLabelAndPlaceholder("Age", "Age", "29");
+            enterText.EnterTextInputWithLabelAndPlaceholder("Salary", "Salary", "1200");
+            enterText.EnterTextInputWithLabelAndPlaceholder("Department", "Department", "QA automation");
+            verify.VerifyButtonTextExit("Submit");
+            click.ClickButtonText("Submit");
+
+            // Verify the new row added
+            verify.VerifyTextTableIndex(4, 2, "User1");
+            verify.VerifyTextTableIndex(4, 3, "LastName2");
+            verify.VerifyTextTableIndex(4, 4, "29");
+            verify.VerifyTextTableIndex(4, 5, "test1@testing.com");
+            verify.VerifyTextTableIndex(4, 6, "1200");
+            verify.VerifyTextTableIndex(4, 7, "QA automation");
+
+
+            Thread.Sleep(10000);
+
+        }
 
     }
 }
