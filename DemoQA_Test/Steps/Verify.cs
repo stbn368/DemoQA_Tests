@@ -125,6 +125,23 @@ namespace DemoQA_Test.Steps
             wait.ElementIsVisible(elementLocator);
         }
 
+        /// <summary>
+        /// Step to verify text in a row when the table is created with the <div></div> tags
+        /// The step uses index to locate the row and the position of the text
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="index"></param>
+        /// <param name="text"></param>
+        public void VerifyTextTableIndex(int row, int index, string text)
+        {
+            By elementLocator = By.XPath("//div[@role='rowgroup'][" + row + "]/descendant::*[" + index + "]");
+            wait.ElementIsVisible(elementLocator);
+
+            var getText = driver.FindElement(elementLocator).Text;
+
+            Assert.IsTrue(getText.Equals(text), "The text expected was " + text + " but the text found was " + getText + "");
+        }
+
 
     }
 }
