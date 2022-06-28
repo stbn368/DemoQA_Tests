@@ -101,5 +101,16 @@ namespace DemoQA_Test.Steps
             actions.Build().Perform();
         }
 
+        /// <summary>
+        /// Step to click in a link with text
+        /// </summary>
+        /// <param name="linkText"></param>
+        public void ClickLinkText(string linkText)
+        {
+            By elementLocator = By.XPath("//a[text()='" + linkText + "' and @href]");
+            wait.ElementToBeClickable(elementLocator);
+            driver.FindElement(elementLocator).Click();
+        }
+
     }
 }
