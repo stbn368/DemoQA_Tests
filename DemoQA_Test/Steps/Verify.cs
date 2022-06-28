@@ -17,7 +17,7 @@ namespace DemoQA_Test.Steps
         /// Step to verify if an exact text is available in an element
         /// </summary>
         /// <param name="textLocator"></param>
-        public void VerifyExactText(string textLocator)
+        public void VerifyExactTextInElement(string textLocator)
         {
             By elementLocator = By.XPath("//*[text()='" + textLocator + "']");
             wait.ElementIsVisible(elementLocator);
@@ -32,6 +32,16 @@ namespace DemoQA_Test.Steps
         public void VerifyExactTextExist(string textLocator)
         {
             By elementLocator = By.XPath("//*[text()='" + textLocator + "']");
+            wait.ElementIsVisible(elementLocator);
+        }
+
+        /// <summary>
+        /// Step to verify partial text exists
+        /// </summary>
+        /// <param name="textLocator"></param>
+        public void VerifyPartialTextExist(string textLocator)
+        {
+            By elementLocator = By.XPath("//*[contains(text(),'" + textLocator + "')]");
             wait.ElementIsVisible(elementLocator);
         }
 
@@ -142,6 +152,15 @@ namespace DemoQA_Test.Steps
             Assert.IsTrue(getText.Equals(text), "The text expected was " + text + " but the text found was " + getText + "");
         }
 
+        /// <summary>
+        /// Step to verify if a link with a text exits
+        /// </summary>
+        /// <param name="linkText"></param>
+        public void VerifyLinkTextExist(string linkText)
+        {
+            By elementLocator = By.XPath("//a[text()='" + linkText + "' and @href]");
+            wait.ElementExists(elementLocator);
+        }
 
     }
 }
