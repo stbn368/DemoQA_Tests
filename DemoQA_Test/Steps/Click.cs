@@ -61,6 +61,17 @@ namespace DemoQA_Test.Steps
         }
 
         /// <summary>
+        /// Step to locate and click on a button with an id
+        /// </summary>
+        /// <param name="buttonId"></param>
+        public void ClickButtonId(string buttonId)
+        {
+            By elementLocator = By.XPath("//*[@id='" + buttonId + "']");
+            wait.ElementToBeClickable(elementLocator);
+            driver.FindElement(elementLocator).Click();
+        }
+
+        /// <summary>
         /// Step to locate and click on a radio button with a specified text
         /// </summary>
         /// <param name="radioButtonText"></param>

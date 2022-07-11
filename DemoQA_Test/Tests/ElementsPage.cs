@@ -49,7 +49,7 @@ namespace DemoQA_Test.Tests
             click.ClickButtonTooltip("Expand all");
             verify.VerifyCheckboxTextExit("Desktop");
             verify.VerifyCheckboxTextExit("Angular");
-            select.SelectCheckboxText("Office");
+            select.SelectCheckboxFollowingText("Office");
             verify.VerifyExactTextInElement("You have selected :");
             verify.VerifyCheckboxIsChecked("Public");
             verify.VerifyCheckboxIsChecked("Private");

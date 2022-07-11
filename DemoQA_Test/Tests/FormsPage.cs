@@ -20,12 +20,19 @@ namespace DemoQA_Test.Tests
             click.ClickElement("Forms");
             verify.VerifyExactTextInElement("Please select an item from left to start practice.");
             click.ClickElementText("Practice Form");
+            verify.VerifyExactTextExist("Student Registration Form");
+            click.ClickButtonId("dateOfBirthInput");
 
+            //The next steps need to be implemented
+            //select.SelectDate("8", "February", "2000");
+            //enterText.EnterTextInputWithLabelAndPlaceholder("Name", "First Name", "Name1");
+            //enterText.EnterTextInputWithLabelAndPlaceholder("Name", "Last Name", "Last1");
+            //enterText.EnterTextInputWithLabelAndPlaceholder("Email", "name@example.com", "testing1@test.com");
+            //enterText.EnterTextInputWithLabelAndPlaceholder("Mobile", "Mobile Number", "1234567890");
+            //select.SelectCheckboxFollowingText("Reading");
+            //select.SelectCheckboxPrecedingText("Reading");
 
-
-
-
-            Thread.Sleep(5000);
+            Thread.Sleep(10000);
         }
     }
 }
