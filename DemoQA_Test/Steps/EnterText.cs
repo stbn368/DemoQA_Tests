@@ -22,6 +22,20 @@ namespace DemoQA_Test.Steps
         }
 
         /// <summary>
+        /// Step to locate an element together with a label and with a placeholder text, and enter text. It has been implemented
+        /// for a specified page where the locator need to be different with the rest found in the web side
+        /// </summary>
+        /// <param name="labelText"></param>
+        /// <param name="placeholderText"></param>
+        /// <param name="text"></param>
+        public void PageSpecifiedEnterTextInputWithLabelAndPlaceholder(string labelText, string placeholderText, string text)
+        {
+            By elementLocator = By.XPath("//*[text()='" + labelText + "']/following::div/*/*/input[@value='" + placeholderText + "']");
+            driver.FindElement(elementLocator).Clear();
+            driver.FindElement(elementLocator).SendKeys(text);
+        }
+
+        /// <summary>
         /// Step to locate an element together with a textareaLabel and with a placeholder text, and enter text
         /// </summary>
         /// <param name="labelTextarea"></param>

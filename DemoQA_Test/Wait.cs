@@ -18,8 +18,16 @@ namespace DemoQA_Test
         /// <param name="elementLocator"></param>
         public void ElementToBeClickable(By elementLocator)
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(configuration.timeOut));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(elementLocator));
+            try
+            {
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(configuration.timeOut));
+                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(elementLocator));
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("TimeOut Reached", ex);
+            }
+            
         }
 
         /// <summary>
