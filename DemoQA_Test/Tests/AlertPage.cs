@@ -15,7 +15,7 @@ namespace DemoQA_Test.Tests
         EnterText enterText = new EnterText();
 
         [Test, Order(0)]
-        public void AlertsWindows()
+        public void NewTabWindows()
         {
             click.ClickElement("Alerts, Frame & Windows");
             verify.VerifyExactTextInElement("Please select an item from left to start practice.");
@@ -40,6 +40,46 @@ namespace DemoQA_Test.Tests
             //verify.VerifyExactTextExist("Knowledge increases by sharing but not by saving. Please share this website with your friends and in your organization.");
             //select.CloseCurrentTab();
 
+        }
+
+        [Test, Order(1)]
+        public void AlertWindows()
+        {
+            click.ClickElement("Alerts, Frame & Windows");
+            verify.VerifyExactTextInElement("Please select an item from left to start practice.");
+            select.ScrollToElement("Alerts");
+            click.ClickElementText("Alerts");
+
+            //Scenario 1: simple alert
+            select.ScrollToElement("Click Button to see alert ");
+            verify.VerifyExactTextExist("Click Button to see alert ");
+            click.ClickButtonTextTogetherText("Click me", "Click Button to see alert ");          
+            click.AcceptSimpleAlert();
+
+            //Scenario 2: simple alert shown after 5 seconds
+            select.ScrollToElement("On button click, alert will appear after 5 seconds ");
+            verify.VerifyExactTextExist("On button click, alert will appear after 5 seconds ");
+            //click.ClickButtonTextTogetherText("Click me", "On button click, alert will appear after 5 seconds ");
+            //click.AcceptSimpleAlertAfterTime(7);
+
+            //Scenario 3: confirm and dimiss alert
+            select.ScrollToElement("On button click, confirm box will appear");
+            verify.VerifyExactTextExist("On button click, confirm box will appear");
+            click.ClickButtonTextTogetherText("Click me", "On button click, confirm box will appear");
+
+            click.AcceptSimpleAlert();
+            //verify.VerifyExactTextExist("");
+
+            click.ClickButtonTextTogetherText("Click me", "On button click, confirm box will appear");
+            click.DimissAlert();
+            //verify.VerifyExactTextExist("");
+
+            //Scenario 4: send text in the popup alert
+            select.ScrollToElement("On button click, prompt box will appear");
+            verify.VerifyExactTextExist("On button click, prompt box will appear");
+            click.ClickButtonTextTogetherText("Click me", "On button click, prompt box will appear");
+            driver.SwitchTo().Alert().SendKeys("testing alert");
+            click.AcceptSimpleAlert();
         }
     }
 }

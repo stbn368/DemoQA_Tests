@@ -49,6 +49,7 @@ namespace DemoQA_Test.Tests
             click.ClickButtonTooltip("Expand all");
             verify.VerifyCheckboxTextExit("Desktop");
             verify.VerifyCheckboxTextExit("Angular");
+            select.ScrollToElement("Office");
             select.SelectCheckboxFollowingText("Office");
             verify.VerifyExactTextInElement("You have selected :");
             verify.VerifyCheckboxIsChecked("Public");
@@ -189,6 +190,7 @@ namespace DemoQA_Test.Tests
 
             verify.VerifyExactTextExist("Valid Link");
             verify.VerifyLinkTextExist("Click Here for Valid Link");
+            select.ScrollToElement("Click Here for Valid Link");
             click.ClickLinkText("Click Here for Valid Link");
             click.ClickElement("Elements");
             verify.VerifyExactTextExist("Please select an item from left to start practice.");

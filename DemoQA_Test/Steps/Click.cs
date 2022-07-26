@@ -1,4 +1,5 @@
-﻿using Ocelot.Infrastructure;
+﻿using Microsoft.Graph;
+using Ocelot.Infrastructure;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
@@ -33,7 +34,7 @@ namespace DemoQA_Test.Steps
         /// <param name="textElement"></param>
         public void ClickElementText(string textElement)
         {
-            By elementLocator = By.XPath("//*[contains(text(),'" + textElement + "')]");
+            By elementLocator = By.XPath("//*[text()='" + textElement + "']");
             wait.ElementToBeClickable(elementLocator);
             driver.FindElement(elementLocator).Click();
         }
@@ -121,6 +122,44 @@ namespace DemoQA_Test.Steps
             By elementLocator = By.XPath("//a[text()='" + linkText + "' and @href]");
             wait.ElementToBeClickable(elementLocator);
             driver.FindElement(elementLocator).Click();
+        }
+
+        /// <summary>
+        /// Step to locate a button together a text and click on it
+        /// </summary>
+        /// <param name="buttonText"></param>
+        /// <param name="text"></param>
+        public void ClickButtonTextTogetherText(string buttonText, string text)
+        {
+            By elementLocator = By.XPath("//*[text()='" + text + "']/following::button[text()='" + buttonText + "'][1]");
+            wait.ElementToBeClickable(elementLocator);
+            driver.FindElement(elementLocator).Click();
+        }
+
+        /// <summary>
+        /// Step to accept an alert
+        /// </summary>
+        public void AcceptSimpleAlert()
+        {
+            driver.SwitchTo().Alert().Accept();
+        }
+
+        /// <summary>
+        /// Step to accept an alert after a few seconds
+        /// </summary>
+        /// <param name="seconds"></param>
+        public void AcceptSimpleAlertAfterTime(int seconds)
+        {
+            Thread.Sleep(seconds);
+            driver.SwitchTo().Alert().Accept();
+        }
+
+        /// <summary>
+        /// Step to dimiss an alert
+        /// </summary>
+        public void DimissAlert()
+        {
+            driver.SwitchTo().Alert().Dismiss();
         }
 
     }
