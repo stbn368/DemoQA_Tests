@@ -81,5 +81,63 @@ namespace DemoQA_Test.Tests
             driver.SwitchTo().Alert().SendKeys("testing alert");
             click.AcceptSimpleAlert();
         }
+
+        [Test, Order(2)]
+        public void Frames()
+        {
+            click.ClickElement("Alerts, Frame & Windows");
+            verify.VerifyExactTextInElement("Please select an item from left to start practice.");
+            select.ScrollToElement("Frames");
+            click.ClickElementText("Frames");
+            verify.VerifyExactTextExist("Sample Iframe page There are 2 Iframes in this page. Use browser inspecter or firebug to check out the HTML source. In total you can switch between the parent frame, which is this window, and the two frames below");
+
+            select.SwitchToFrame("frame1");
+            verify.VerifyExactTextExist("This is a sample page");
+
+            select.SwitchDefaultFrame();
+            select.SwitchToFrame("frame2");
+            verify.VerifyExactTextExist("This is a sample page");
+
+            select.SwitchDefaultFrame();
+            verify.VerifyExactTextExist("Sample Iframe page There are 2 Iframes in this page. Use browser inspecter or firebug to check out the HTML source. In total you can switch between the parent frame, which is this window, and the two frames below");
+        }
+
+        [Test, Order(3)]
+        public void NestedFrames()
+        {
+            click.ClickElement("Alerts, Frame & Windows");
+            verify.VerifyExactTextInElement("Please select an item from left to start practice.");
+            select.ScrollToElement("Nested Frames");
+            click.ClickElementText("Nested Frames");
+            verify.VerifyExactTextExist("Sample Nested Iframe page. There are nested iframes in this page. Use browser inspecter or firebug to check out the HTML source. In total you can switch between the parent frame and the nested child frame.");
+
+            select.SwitchToFrame("frame1");
+            verify.VerifyExactTextExist("Parent frame");
+
+            select.SwitchFrameIndex(0);
+            verify.VerifyExactTextExist("Child Iframe");
+
+            select.SwitchDefaultFrame();
+            verify.VerifyExactTextExist("Parent frame");
+
+            select.SwitchDefaultFrame();
+            verify.VerifyExactTextExist("Sample Nested Iframe page. There are nested iframes in this page. Use browser inspecter or firebug to check out the HTML source. In total you can switch between the parent frame and the nested child frame.");
+        }
+
+        [Test, Order(4)]
+        public void ModalDialogs()
+        {
+            click.ClickElement("Alerts, Frame & Windows");
+            verify.VerifyExactTextInElement("Please select an item from left to start practice.");
+            select.ScrollToElement("Modal Dialogs");
+            click.ClickElementText("Modal Dialogs");
+            verify.VerifyExactTextExist("Click on button to see modal");
+
+            verify.VerifyButtonTextExit("Small modal");
+            verify.VerifyButtonTextExit("Large modal");
+
+            //Test incompleted
+
+        }
     }
 }

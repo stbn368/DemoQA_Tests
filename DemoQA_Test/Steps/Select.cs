@@ -110,5 +110,31 @@ namespace DemoQA_Test.Steps
         {
             driver.Close();
         }
+
+        /// <summary>
+        /// Step to switch to the iframe with id
+        /// </summary>
+        /// <param name="frameId"></param>
+        public void SwitchToFrame(string frameId)
+        {
+            driver.SwitchTo().Frame(frameId);
+        }
+
+        /// <summary>
+        /// Step to switch to the parent iframe
+        /// </summary>
+        public void SwitchDefaultFrame()
+        {
+            driver.SwitchTo().ParentFrame();
+        }
+
+        /// <summary>
+        /// Step to switch to the iframe with index
+        /// </summary>
+        /// <param name="frameIndex"></param>
+        public void SwitchFrameIndex(int frameIndex)
+        {
+            driver.SwitchTo().Frame(frameIndex);
+        }
     }
 }
