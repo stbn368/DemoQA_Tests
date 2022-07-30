@@ -136,5 +136,50 @@ namespace DemoQA_Test.Steps
         {
             driver.SwitchTo().Frame(frameIndex);
         }
+
+        /// <summary>
+        /// Step to open the accodian tab and check if it has been opened
+        /// </summary>
+        /// <param name="accordianText"></param>
+        public void OpenAccordianTab(string accordianText)
+        {
+            By locatorAccordianTab = By.XPath("//*[text()='" + accordianText + "']");
+            wait.ElementToBeClickable(locatorAccordianTab);
+            driver.FindElement(locatorAccordianTab).Click();
+
+            //verify accordion tab is opened
+            By locatorAccordionTabOpened = By.XPath("//*[text()='" + accordianText + "']/following-sibling::div");
+            wait.ElementExists(locatorAccordionTabOpened);
+
+            By locatorClassAccordionTabOpened = By.XPath("//*[text()='" + accordianText + "']/following-sibling::div[@class='collapse show']");
+            wait.ElementExists(locatorClassAccordionTabOpened);
+            var classValue = driver.FindElement(locatorAccordionTabOpened).GetAttribute("class");
+
+            Assert.AreEqual("collapse show", classValue, "Step Fail. The accordian tab is not opened");
+
+        }
+
+        /// <summary>
+        /// Step to close the accodian tab and check if it has been closed
+        /// </summary>
+        /// <param name="accordianText"></param>
+        public void CloseAccordianTab(string accordianText)
+        {
+            By locatorAccordianTab = By.XPath("//*[text()='" + accordianText + "']");
+            wait.ElementToBeClickable(locatorAccordianTab);
+            driver.FindElement(locatorAccordianTab).Click();
+
+            //verify accordion tab is closed
+            By locatorAccordionTabOpened = By.XPath("//*[text()='" + accordianText + "']/following-sibling::div");
+            wait.ElementExists(locatorAccordionTabOpened);
+
+            By locatorClassAccordionTabOpened = By.XPath("//*[text()='" + accordianText + "']/following-sibling::div[@class='collapse']");
+            wait.ElementExists(locatorClassAccordionTabOpened);
+            var classValue = driver.FindElement(locatorAccordionTabOpened).GetAttribute("class");
+
+            Assert.AreEqual("collapse", classValue, "Step Fail. The accordian tab is not closed");
+        }
+
+        
     }
 }

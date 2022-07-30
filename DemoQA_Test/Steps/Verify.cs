@@ -162,5 +162,33 @@ namespace DemoQA_Test.Steps
             wait.ElementExists(elementLocator);
         }
 
+        /// <summary>
+        /// Step to verify if the accordion tab is opened
+        /// </summary>
+        /// <param name="accordianText"></param>
+        public void VerifyOpenAccordianTab(string accordianText)
+        {
+            By locatorAccordionTabOpened = By.XPath("//*[text()='" + accordianText + "']/following-sibling::div");
+            wait.ElementExists(locatorAccordionTabOpened);
+
+            var classValue = driver.FindElement(locatorAccordionTabOpened).GetAttribute("class");
+
+            Assert.AreEqual("collapse show", classValue, "Step Fail. The accordian tab is not opened");
+        }
+
+        /// <summary>
+        /// Step to verify if the accordion tab is closed
+        /// </summary>
+        /// <param name="accordianText"></param>
+        public void VerifyCloseAccordianTab(string accordianText)
+        {
+            By locatorAccordionTabOpened = By.XPath("//*[text()='" + accordianText + "']/following-sibling::div");
+            wait.ElementExists(locatorAccordionTabOpened);
+
+            var classValue = driver.FindElement(locatorAccordionTabOpened).GetAttribute("class");
+
+            Assert.AreEqual("collapse", classValue, "Step Fail. The accordian tab is not opened");
+        }
+
     }
 }
