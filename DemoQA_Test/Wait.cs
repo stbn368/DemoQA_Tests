@@ -25,7 +25,7 @@ namespace DemoQA_Test
             }
             catch(Exception ex)
             {
-                Console.WriteLine("TimeOut Reached", ex);
+                Console.WriteLine("TimeOut Reached", ex.ToString());
             }
             
         }

@@ -32,7 +32,7 @@ namespace DemoQA_Test.Tests
             //select.SelectCheckboxFollowingText("Reading");
             //select.SelectCheckboxPrecedingText("Reading");
 
-            Thread.Sleep(10000);
+            //Thread.Sleep(10000);
         }
     }
 }

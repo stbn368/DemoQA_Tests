@@ -36,6 +36,15 @@ namespace DemoQA_Test.Tests
             select.OpenAccordianTab("Why do we use it?");
             select.CloseAccordianTab("Why do we use it?");
 
+
+            select.ScrollToElement("Date Picker");
+            click.ClickElementText("Date Picker");
+            select.SelectMonth("March");
+            select.SelectYear("2025");
+            select.SelectDay(16);
+
+            Thread.Sleep(10000);
+
         }
     }
 }
