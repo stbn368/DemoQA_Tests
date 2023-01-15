@@ -180,6 +180,87 @@ namespace DemoQA_Test.Steps
             Assert.AreEqual("collapse", classValue, "Step Fail. The accordian tab is not closed");
         }
 
-        
+        /// <summary>
+        /// Method to check if the form is open to interact
+        /// </summary>
+        /// <returns>If the checked class is available, the form is open</returns>
+        public bool CheckDateFormOpen()
+        {
+            bool verificator = false;
+
+            By elementLocator = By.Id("datePickerMonthYearInput");
+            wait.ElementToBeClickable(elementLocator);
+
+            var getClass = driver.FindElement(elementLocator).GetAttribute("class");
+
+            if (getClass.Equals(""))
+            {
+                driver.FindElement(elementLocator).Click();
+                verificator = true;
+            }
+            else
+            {
+                verificator = true;
+            }
+
+            return verificator;
+        }
+
+        /// <summary>
+        /// Step to selec a day in the form
+        /// </summary>
+        /// <param name="day"></param>
+        /// <exception cref="ElementNotInteractableException"></exception>
+        public void SelectDay(int day)
+        {
+            if (!CheckDateFormOpen())
+            {
+                throw new ElementNotInteractableException("The date form couldn't be opened");
+            }
+
+            By elementLocator = By.XPath("//div[@class='react-datepicker__month']//div[text()=" + day + "]");
+            wait.ElementToBeClickable(elementLocator);
+            driver.FindElements(elementLocator).First().Click();
+        }
+
+        /// <summary>
+        /// Step to select a month
+        /// </summary>
+        /// <param name="month"></param>
+        /// <exception cref="ElementNotInteractableException"></exception>
+        public void SelectMonth(string month)
+        {
+            if (!CheckDateFormOpen())
+            {
+                throw new ElementNotInteractableException("The date form couldn't be opened");
+            }
+
+            By elementLocator = By.XPath("//div[@class='react-datepicker__month-dropdown-container react-datepicker__month-dropdown-container--select']/select");
+            wait.ElementToBeClickable(elementLocator);
+
+            SelectElement dropDown = new SelectElement(driver.FindElement(elementLocator));
+            dropDown.SelectByText(month);
+        }
+
+        /// <summary>
+        /// Step to select a year
+        /// </summary>
+        /// <param name="year"></param>
+        /// <exception cref="ElementNotInteractableException"></exception>
+        public void SelectYear(string year)
+        {
+            if (!CheckDateFormOpen())
+            {
+                throw new ElementNotInteractableException("The date form couldn't be opened");
+            }
+
+            By elementLocator = By.XPath("//div[@class='react-datepicker__year-dropdown-container react-datepicker__year-dropdown-container--select']/select");
+            wait.ElementToBeClickable(elementLocator);
+
+            SelectElement dropDown = new SelectElement(driver.FindElement(elementLocator));
+            dropDown.SelectByText(year);
+        }
+
+
     }
 }
