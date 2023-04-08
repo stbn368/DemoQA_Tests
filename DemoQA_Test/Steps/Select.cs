@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace DemoQA_Test.Steps
 {
@@ -58,7 +59,7 @@ namespace DemoQA_Test.Steps
             //((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", element);
         }
 
-        //Step incompleted, I need to work on it
+        //Step incompleted, need to work on it
         public void SelectDate(string day, string month, string year)
         {
             By monthLocator = By.XPath("//select[@class='react-datepicker__month-select']");
@@ -207,16 +208,59 @@ namespace DemoQA_Test.Steps
         }
 
         /// <summary>
+        /// Method to check if the form of the date and time is open to interact
+        /// </summary>
+        /// <returns>If the checked class is available, the form is open</returns>
+        public bool CheckDateAndTimeFormOpen()
+        {
+            bool verificator = false;
+
+            By elementLocator = By.Id("dateAndTimePickerInput");
+            wait.ElementToBeClickable(elementLocator);
+
+            var getClass = driver.FindElement(elementLocator).GetAttribute("class");
+
+            if (getClass.Equals(""))
+            {
+                driver.FindElement(elementLocator).Click();
+                verificator = true;
+            }
+            else
+            {
+                verificator = true;
+            }
+
+            return verificator;
+        }
+
+        /// <summary>
+        /// Step to open a form to start to interact
+        /// </summary>
+        /// <param name="id"></param>
+        public void openForm(string id)
+        {
+            By elementLocator = By.Id(id);
+            wait.ElementToBeClickable(elementLocator);
+
+            var getClass = driver.FindElement(elementLocator).GetAttribute("class");
+
+            if (getClass.Equals(""))
+            {
+                driver.FindElement(elementLocator).Click();
+            }
+        }
+
+        /// <summary>
         /// Step to selec a day in the form
         /// </summary>
         /// <param name="day"></param>
         /// <exception cref="ElementNotInteractableException"></exception>
         public void SelectDay(int day)
         {
-            if (!CheckDateFormOpen())
-            {
-                throw new ElementNotInteractableException("The date form couldn't be opened");
-            }
+            //if (!CheckDateFormOpen())
+            //{
+            //    throw new ElementNotInteractableException("The date form couldn't be opened");
+            //}
 
             By elementLocator = By.XPath("//div[@class='react-datepicker__month']//div[text()=" + day + "]");
             wait.ElementToBeClickable(elementLocator);
@@ -230,10 +274,10 @@ namespace DemoQA_Test.Steps
         /// <exception cref="ElementNotInteractableException"></exception>
         public void SelectMonth(string month)
         {
-            if (!CheckDateFormOpen())
-            {
-                throw new ElementNotInteractableException("The date form couldn't be opened");
-            }
+            //if (!CheckDateFormOpen())
+            //{
+            //    throw new ElementNotInteractableException("The date form couldn't be opened");
+            //}
 
             By elementLocator = By.XPath("//div[@class='react-datepicker__month-dropdown-container react-datepicker__month-dropdown-container--select']/select");
             wait.ElementToBeClickable(elementLocator);
@@ -249,10 +293,10 @@ namespace DemoQA_Test.Steps
         /// <exception cref="ElementNotInteractableException"></exception>
         public void SelectYear(string year)
         {
-            if (!CheckDateFormOpen())
-            {
-                throw new ElementNotInteractableException("The date form couldn't be opened");
-            }
+            //if (!CheckDateFormOpen())
+            //{
+            //    throw new ElementNotInteractableException("The date form couldn't be opened");
+            //}
 
             By elementLocator = By.XPath("//div[@class='react-datepicker__year-dropdown-container react-datepicker__year-dropdown-container--select']/select");
             wait.ElementToBeClickable(elementLocator);
@@ -260,7 +304,67 @@ namespace DemoQA_Test.Steps
             SelectElement dropDown = new SelectElement(driver.FindElement(elementLocator));
             dropDown.SelectByText(year);
         }
+        /// <summary>
+        /// This step is waiting to be investigated
+        /// </summary>
+        public void MoveSliderToRight()
+        {
+            By elementLocator = By.XPath("");
 
+            WebElement slider = (WebElement)driver.FindElement(elementLocator);
 
+            Actions action = new Actions(driver);
+            action.Click(slider).Build().Perform();
+            Thread.Sleep(1000);
+            for (int i = 0; i < 10; i++)
+            {
+                action.SendKeys(Keys.ArrowLeft).Build().Perform();
+                Thread.Sleep(2000);
+            }
+        }
+
+        /// <summary>
+        /// Step to select a tab
+        /// </summary>
+        /// <param name="tabText"></param>
+        public void SelectTab(string tabText)
+        {
+            By elementLocator = By.XPath("//nav/a[text()='" + tabText + "']");
+
+            wait.ElementToBeClickable(elementLocator);
+            driver.FindElement(elementLocator).Click();
+        }
+
+        /// <summary>
+        /// Step to hover element
+        /// </summary>
+        /// <param name="elementText"></param>
+        public void HoverElement(string elementText)
+        {
+            By elementLocator = By.XPath("//*[text()='"+ elementText + "'] | //input[@placeholder='" + elementText + "']");
+
+            wait.ElementIsVisible(elementLocator);
+
+            IWebElement element = driver.FindElement(elementLocator);
+            Actions action = new Actions(driver);
+            action.MoveToElement(element).Build().Perform();
+        }
+
+        /// <summary>
+        /// Step to hover dropdown
+        /// </summary>
+        /// <param name="elementText"></param>
+        public void HoverDropDown(string elementText)
+        {
+            By elementLocator = By.XPath("//*[text()='" + elementText + "'] | //input[@placeholder='" + elementText + "']");
+
+            wait.ElementIsVisible(elementLocator);
+
+            IWebElement element = driver.FindElement(elementLocator);
+            Actions action = new Actions(driver);
+            action.MoveToElement(element).Click().Perform();
+
+            Thread.Sleep(1000);
+        }
     }
 }
