@@ -162,5 +162,17 @@ namespace DemoQA_Test.Steps
             driver.SwitchTo().Alert().Dismiss();
         }
 
+        /// <summary>
+        /// Step to click on an element looking for the class of the element
+        /// </summary>
+        /// <param name="classText"></param>
+        public void ClickElementByClass(string classText)
+        {
+            By elementLocator = By.XPath("//*[@class='" + classText + "']");
+
+            wait.ElementToBeClickable(elementLocator);
+            driver.FindElement(elementLocator).Click();
+        }
+
     }
 }

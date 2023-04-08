@@ -190,5 +190,52 @@ namespace DemoQA_Test.Steps
             Assert.AreEqual("collapse", classValue, "Step Fail. The accordian tab is not opened");
         }
 
+        /// <summary>
+        /// Step to verify text together a tab
+        /// </summary>
+        /// <param name="tabText"></param>
+        /// <param name="text"></param>
+        public void VerifyTextTogetherTab(string tabText, string text)
+        {
+            By elementLocator = By.XPath("//*[text()='" + tabText + "']/following::*[@value='" + text + "']");
+            wait.ElementIsVisible(elementLocator);
+        }
+
+        /// <summary>
+        /// Step to verify tab with text exits
+        /// </summary>
+        /// <param name="tabText"></param>
+        public void VerifyTabExits(string tabText)
+        {
+            By elementLocator = By.XPath("//nav/a[text()='" + tabText + "']");
+            wait.ElementExists(elementLocator);
+        }
+
+        /// <summary>
+        /// Step to verify if a tab is selected
+        /// </summary>
+        /// <param name="tabText"></param>
+        public void VerifyTabIsSelected(string tabText)
+        {
+            By elementLocator = By.XPath("//nav/a[text()='" + tabText + "']");
+            wait.ElementIsVisible(elementLocator);
+
+            var isSelected = driver.FindElement(elementLocator).GetAttribute("aria-selected");
+            Assert.True(isSelected.Equals("true"),"The tab is not selected.");
+        }
+
+        /// <summary>
+        /// Step to verify if a tab is not selected
+        /// </summary>
+        /// <param name="tabText"></param>
+        public void VerifyTabIsNotSelected(string tabText)
+        {
+            By elementLocator = By.XPath("//nav/a[text()='" + tabText + "']");
+            wait.ElementIsVisible(elementLocator);
+
+            var isSelected = driver.FindElement(elementLocator).GetAttribute("aria-selected");
+            Assert.True(isSelected.Equals("false"), "The tab is selected.");
+        }
+
     }
 }
