@@ -23,7 +23,8 @@ namespace DemoQA_Test.Steps
         /// <param name="textElement"></param>
         public void ClickElement(string textElement)
         {
-            By elementLocator = By.XPath("//*[contains(text(),'" + textElement + "')]/parent::div/parent::div");
+            //By elementLocator = By.XPath("//*[contains(text(),'" + textElement + "')]/parent::div/parent::div");
+            By elementLocator = By.XPath(GenericResources.GetElementByXpath(textElement));
             wait.ElementToBeClickable(elementLocator);
             driver.FindElement(elementLocator).Click();
         }
@@ -89,7 +90,8 @@ namespace DemoQA_Test.Steps
         /// <param name="buttonText"></param>
         public void DoubleClickButtonText(string buttonText)
         {
-            By elementLocator = By.XPath("//button[text()='" + buttonText + "']");
+            //By elementLocator = By.XPath("//button[text()='" + buttonText + "']");
+            By elementLocator = By.XPath(GenericResources.GetElementByXpath(buttonText));
             wait.ElementToBeClickable(elementLocator);
             IWebElement element = driver.FindElement(elementLocator);
             
@@ -105,6 +107,7 @@ namespace DemoQA_Test.Steps
         public void RightClickButtonText(string buttonText)
         {
             By elementLocator = By.XPath("//button[text()='" + buttonText + "']");
+            //By elementLocator = By.XPath(GenericResources.GetElementByXpath(buttonText));
             wait.ElementToBeClickable(elementLocator);
             IWebElement element = driver.FindElement(elementLocator);
 
@@ -160,6 +163,18 @@ namespace DemoQA_Test.Steps
         public void DimissAlert()
         {
             driver.SwitchTo().Alert().Dismiss();
+        }
+
+        /// <summary>
+        /// Step to click on an element looking for the class of the element
+        /// </summary>
+        /// <param name="classText"></param>
+        public void ClickElementByClass(string classText)
+        {
+            By elementLocator = By.XPath("//*[@class='" + classText + "']");
+
+            wait.ElementToBeClickable(elementLocator);
+            driver.FindElement(elementLocator).Click();
         }
 
     }
