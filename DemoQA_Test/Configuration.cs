@@ -14,17 +14,5 @@ namespace DemoQA_Test
         // Time to wait until getting a timeout
         public int timeOut = 10;
 
-        //public string GetElementXpaths(string elementText)
-        //{
-        //    string[] elementXpaths =
-        //    {
-        //        "//*[contains(text(),'" + elementText + "')]/parent::div/parent::div",
-        //        ".//*[contains(text(),'" + elementText + "')]"
-
-        //    };
-
-        //    return string.Join(" | ", elementXpaths);
-        //}
-
     }
 }
