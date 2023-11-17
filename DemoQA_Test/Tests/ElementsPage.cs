@@ -84,6 +84,7 @@ namespace DemoQA_Test.Tests
             verify.VerifyButtonTextExit("Double Click Me");
             verify.VerifyButtonTextExit("Right Click Me");
             verify.VerifyButtonTextExit("Click Me");
+            select.ScrollToElement("Double Click Me");
             click.DoubleClickButtonText("Double Click Me");
             verify.VerifyExactTextInElement("You have done a double click");
             click.RightClickButtonText("Right Click Me");
@@ -153,6 +154,7 @@ namespace DemoQA_Test.Tests
 
             verify.VerifyLinkTextExist("Created");
             click.ClickLinkText("Created");
+            select.ScrollDown();
             verify.VerifyExactTextExist("201");
 
             verify.VerifyLinkTextExist("No Content");
