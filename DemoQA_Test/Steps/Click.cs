@@ -36,6 +36,8 @@ namespace DemoQA_Test.Steps
         public void ClickElementText(string textElement)
         {
             By elementLocator = By.XPath("//*[text()='" + textElement + "']");
+            //It's waiting that the GetElementByXpath() method is refactored
+            //By elementLocator = By.XPath(GenericResources.GetElementByXpath(textElement));
             wait.ElementToBeClickable(elementLocator);
             driver.FindElement(elementLocator).Click();
         }
@@ -90,8 +92,10 @@ namespace DemoQA_Test.Steps
         /// <param name="buttonText"></param>
         public void DoubleClickButtonText(string buttonText)
         {
-            //By elementLocator = By.XPath("//button[text()='" + buttonText + "']");
-            By elementLocator = By.XPath(GenericResources.GetElementByXpath(buttonText));
+            By elementLocator = By.XPath("//button[text()='" + buttonText + "']");
+
+            //It's waiting that the GetElementByXpath() method is refactored
+            //By elementLocator = By.XPath(GenericResources.GetElementByXpath(buttonText));
             wait.ElementToBeClickable(elementLocator);
             IWebElement element = driver.FindElement(elementLocator);
             
